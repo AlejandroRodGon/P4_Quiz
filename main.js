@@ -1,18 +1,19 @@
-
-
 const readline = require('readline');
 const {log, biglog, errorlog, colorize} = require("./out");
 
 const cmds = require("./cmds");
 
-//Mensaje inicial
+
+//  MENSAJE INICIAL.
+
 biglog('CORE Quiz', 'green');
 
+
 const rl = readline.createInterface({
-    input: process.stdin,
     output: process.stdout,
-    prompt: colorize("quiz> ", 'blue'),
-    completer: (line) => {
+    input: process.stdin,
+    prompt: colorize("quiz > ", 'blue'),
+    completer :(line) => {
     const completions = 'h help add delete edit list test p play credits q quit'.split(' ');
     const hits = completions.filter((c) => c.startsWith(line));
     // show all completions if none found
@@ -22,21 +23,23 @@ const rl = readline.createInterface({
 
 rl.prompt();
 
-rl
-    .on('line', (line) => {
+rl.on('line', (line) => {
 
-        let args = line.split(" ");
-        let cmd = args[0].toLowerCase().trim();
+    let args = line.split(" ");
+    let cmd = args[0].toLowerCase().trim();
+
 
     switch (cmd) {
+
         case '':
             rl.prompt();
             break;
 
         case 'help':
         case 'h':
-            cmds.helpCmd(rl);
-            break;
+              cmds.helpCmd(rl);
+              break;
+
 
         case 'quit':
         case 'q':
@@ -52,11 +55,11 @@ rl
             break;
 
         case 'show':
-            cmds.showCmd(rl, args[1]);
+            cmds.showCmd(rl,args[1]);
             break;
 
         case 'test':
-            cmds.testCmd(rl, args[1]);
+            cmds.testCmd(rl,args[1]);
             break;
 
         case 'play':
@@ -65,11 +68,11 @@ rl
             break;
 
         case 'delete':
-            cmds.deleteCmd(rl, args[1]);
+            cmds.deleteCmd(rl,args[1]);
             break;
 
         case 'edit':
-            cmds.editCmd(rl, args[1]);
+            cmds.editCmd(rl,args[1]);
             break;
 
         case 'credits':
@@ -78,33 +81,15 @@ rl
 
         default:
             log(`Comando desconocido: '${colorize(cmd, 'red')}'`);
-            log(`Use ${colorize('help', 'green')} para ver todos los comandos disponibles.`);
+            log(`Use ${colorize('help','green')} para ver todos los comandos disponibles.`);
             rl.prompt();
             break;
-    }
-
-}).on('close', () => {
-    log('Adios!');
-    process.exit(0);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
+        })
+    .on('close', () => {
+            log('Adios!');
+        process.exit(0);
+        });
 
 
 
